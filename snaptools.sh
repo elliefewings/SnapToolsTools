@@ -33,7 +33,7 @@ helpFunction()
   echo "Usage: ./snaptools.sh -i <input directory> -r <reference trancriptome> -t <analysis tool> -c <conda environment> -o <output location>[optional] -h <help>"
   echo ""
   echo "Options:"
-      echo -e "\t-i\tInput: Path to directory containing fastqs [required]"
+      echo -e "\t-i\tInput: Path to directory containing fastqs (for alignment), bams (for preprocessing), or snap files (for counting) [required]"
       echo -e "\t-r\tReference transcriptome: Path to directory containing reference transcriptome [required]"
       echo -e "\t-t\tAnalysis tool: Stage of pipeline to run, one of 'align', 'preprocess', or 'count' [required]"
       echo -e "\t-c\tConda environment: Conda environment containing SnapTools and BWA [required]"
