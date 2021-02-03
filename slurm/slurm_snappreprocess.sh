@@ -9,7 +9,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=8
 #SBATCH --time=48:00:00
-#SBATCH --mem 64000
+#SBATCH --mem 200000
 #SBATCH --mail-user=eleanor.fewings@bioquant.uni-heidelberg.de
 
 # Source bashrc
@@ -32,16 +32,20 @@ mkdir -p ${outsnap}
 slog="${tmp_dir}/${sample}.preprocess.log"
 
 #Set name of output
-snap="${sample}.snap"
+snap="${outdir}/${sample}.snap"
 
 #Set reference name
 rname=$(basename ${ref} | sed 's/.fa//' )
 
+#Find reference directory
+refdir=$(dirname ${ref})
+
+#Run snaptools
 snaptools snap-pre  \
 	--input-file=${bam} \
 	--output-snap=${snap}  \
 	--genome-name=${rname}  \
-	--genome-size="${rname}.chrom.size"  \
+	--genome-size="${refdir}/${rname}.chrom.sizes"  \
 	--min-mapq=30  \
 	--min-flen=0  \
 	--max-flen=1000  \
@@ -51,7 +55,6 @@ snaptools snap-pre  \
 	--overwrite=True  \
 	--max-num=1000000  \
 	--min-cov=100  \
- 	--num-threads=7	\
 	--verbose=True &>> ${slog}
 
  

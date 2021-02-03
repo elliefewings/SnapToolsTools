@@ -26,3 +26,12 @@ Options:
         -o      Output directory: Path to location where output will be generated [default=/home/bq_efewings]
         -h      Help: Does what it says on the tin
 ```
+
+## Installation
+
+Snaptools can be installed into a conda environment and supplied to the command above.
+
+This tool also requires Samtools, which can be added to the environment as follows:
+
+```
+$ conda install -c bioconda samtools openssl=1.0

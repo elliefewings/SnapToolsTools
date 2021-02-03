@@ -28,7 +28,7 @@ slog="${tmp_dir}/${sample}.count.log"
 
 # Add cell-by-bin matrix
 snaptools snap-add-bmat  \
-	--snap-file=snap=${snap}  \
+	--snap-file=${snap}  \
 	--bin-size-list 5000 10000  \
 	--verbose=True &>> ${slog}
  

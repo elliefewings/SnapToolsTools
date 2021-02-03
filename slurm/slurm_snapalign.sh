@@ -22,6 +22,10 @@ fi
 
 #Find aligner
 bwa=$(dirname $(which bwa))
+bowtie=$(dirname $(which bowtie2))
+
+#Set reference directory
+#refdir=$(dirname ${ref})
 
 #Set output directory
 outbam="${outdir}/bam"
@@ -32,19 +36,21 @@ mkdir -p ${outbam}
 slog="${tmp_dir}/${sample}.align.log"
 
 #Set name of output
-bam="${sample}.bam"
+bam="${outdir}/${sample}.bam"
 
 snaptools align-paired-end	\
 	--input-reference=${ref}	\
 	--input-fastq1=${R1}	\
 	--input-fastq2=${R2}	\
 	--output-bam=${bam}	\
-	--aligner=bwa	\
+  --aligner=bwa \
 	--path-to-aligner=${bwa}	\
 	--read-fastq-command=zcat	\
-	--min-cov=0	\
 	--num-threads=7	\
 	--if-sort=True	\
 	--tmp-folder=${tmp_dir}	\
 	--overwrite=TRUE &>> ${slog}
  
+ 
+ #  --aligner=bowtie2 \
+#  --aligner-options='-X 1000 --very-sensitive --fr' \

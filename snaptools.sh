@@ -34,7 +34,7 @@ helpFunction()
   echo ""
   echo "Options:"
       echo -e "\t-i\tInput: Path to directory containing fastqs (for alignment), bams (for preprocessing), or snap files (for counting) [required]"
-      echo -e "\t-r\tReference transcriptome: Path to directory containing reference transcriptome [required]"
+      echo -e "\t-r\tReference transcriptome: Path to reference transcriptome (.fa) [required]"
       echo -e "\t-t\tAnalysis tool: Stage of pipeline to run, one of 'align', 'preprocess', or 'count' [required]"
       echo -e "\t-c\tConda environment: Conda environment containing SnapTools and BWA [required]"
       echo -e "\t-o\tOutput directory: Path to location where output will be generated [default=$HOME]"
@@ -194,6 +194,7 @@ if [[ "${tool}" == "align" ]] ; then
   #If input is fqs
   for fq in $(ls -1 ${input}/*fastq.gz) ; do
     sample=$(basename ${fq} | sed 's/_L.*/_/g' | sed 's/_S[0-9]_.*//g' | sed 's/_[1-9].fastq.gz//g' | sed 's/_$//')
+    
     R1=$(realpath $(ls ${input}/${sample}*R1*))
     R2=$(realpath $(ls ${input}/${sample}*R2*))    
      if [[ ${R1} == "" || ${R2} == "" ]] ; then
@@ -207,7 +208,7 @@ if [[ "${tool}" == "align" ]] ; then
  #If input is bams   
 elif [[ "${tool}" == "preprocess" ]] ; then
   for bam in $(ls -1 ${input}/*bam) ; do
-    sample=$(basename ${bam} | sed 's/*.bam//' )
+    sample=$(basename ${bam} | sed 's/.bam//' )
     bm=$(realpath ${bam})
     
     #Write to file
@@ -216,7 +217,7 @@ elif [[ "${tool}" == "preprocess" ]] ; then
 #If input is snap files     
 elif [[ "${tool}" == "count" ]] ; then
   for snap in $(ls -1 ${input}/*snap) ; do
-    sample=$(basename ${snap} | sed 's/*.snap//' )
+    sample=$(basename ${snap} | sed 's/.snap//' )
     sn=$(realpath ${snap})
       
     #Write to file
